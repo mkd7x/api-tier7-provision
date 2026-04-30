@@ -1,8 +1,6 @@
 using ApiTier7Provision.Application;
-using ApiTier7Provision.Application.HealthChecks;
 using ApiTier7Provision.Infrastructure;
 using ApiTier7Provision.Infrastructure.Persistence;
-using MediatR;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);

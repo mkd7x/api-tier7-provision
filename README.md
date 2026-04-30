@@ -19,10 +19,29 @@ docker compose up --build
 API: `http://localhost:8080`  
 PostgreSQL: `localhost:5432` (`postgres` / `postgres`)
 
+If you want `/api/instances` to call Vast.ai, set your API key in `.env` before starting compose:
+
+```bash
+VastAi__ApiKey=your_vast_ai_api_key
+```
+
 ## Health endpoint
 
 ```bash
-curl http://localhost:8080/health
+curl http://localhost:8080/api/health
 ```
 
 Each call inserts a new row into `health_check_logs` with the current UTC timestamp.
+
+## Instances endpoint (Vast.ai passthrough via CQRS)
+
+```bash
+curl "http://localhost:8080/api/instances?limit=25&select_filters={\"actual_status\":{\"eq\":\"running\"}}"
+```
+
+Supported query parameters are passed to Vast.ai `GET /api/v1/instances/`:
+- `limit`
+- `after_token`
+- `order_by`
+- `select_cols`
+- `select_filters`

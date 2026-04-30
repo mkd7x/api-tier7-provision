@@ -4,9 +4,12 @@ services:
       context: .
       dockerfile: Dockerfile
     container_name: api-tier7-provision-api
+    env_file:
+      - .env
     environment:
       ASPNETCORE_ENVIRONMENT: Development
       ConnectionStrings__DefaultConnection: Host=postgres;Port=5432;Database=api_tier7_provision;Username=postgres;Password=postgres
+      VastAi__BaseUrl: https://console.vast.ai
     ports:
       - "8080:8080"
     depends_on:
