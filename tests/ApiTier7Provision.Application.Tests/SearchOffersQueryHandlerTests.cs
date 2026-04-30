@@ -48,5 +48,20 @@ public sealed class SearchOffersQueryHandlerTests
             CreateInstanceRequest request,
             CancellationToken cancellationToken) =>
             Task.FromResult(new CreateInstanceResult(200, "{}"));
+
+        public Task<ManageInstanceResult> ManageInstanceAsync(
+            ManageInstanceRequest request,
+            CancellationToken cancellationToken) =>
+            Task.FromResult(new ManageInstanceResult(200, "{}"));
+
+        public Task<DestroyInstanceResult> DestroyInstanceAsync(
+            DestroyInstanceRequest request,
+            CancellationToken cancellationToken) =>
+            Task.FromResult(new DestroyInstanceResult(200, "{}"));
+
+        public Task<RebootInstanceResult> RebootInstanceAsync(
+            RebootInstanceRequest request,
+            CancellationToken cancellationToken) =>
+            Task.FromResult(new RebootInstanceResult(200, "{}"));
     }
 }

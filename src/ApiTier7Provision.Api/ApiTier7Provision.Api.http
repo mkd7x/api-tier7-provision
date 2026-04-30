@@ -29,7 +29,7 @@ Accept: application/json
 
 ###
 
-PUT {{ApiTier7Provision.Api_HostAddress}}/api/instances/1234567
+PUT {{ApiTier7Provision.Api_HostAddress}}/api/instances/asks/1234567
 Content-Type: application/json
 Accept: application/json
 
@@ -39,5 +39,26 @@ Accept: application/json
   "disk": 20,
   "runtype": "ssh"
 }
+
+###
+
+PUT {{ApiTier7Provision.Api_HostAddress}}/api/instances/1234567
+Content-Type: application/json
+Accept: application/json
+
+{
+  "state": "stopped",
+  "label": "My ML Training Job"
+}
+
+###
+
+DELETE {{ApiTier7Provision.Api_HostAddress}}/api/instances/1234567
+Accept: application/json
+
+###
+
+PUT {{ApiTier7Provision.Api_HostAddress}}/api/instances/reboot/1234567
+Accept: application/json
 
 ###

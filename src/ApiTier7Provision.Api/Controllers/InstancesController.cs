@@ -72,12 +72,98 @@ public sealed class InstancesController(ISender sender) : ControllerBase
         }
     }
 
-    [HttpPut("{id:int}")]
+    [HttpPut("asks/{id:int}")]
     public async Task<IActionResult> CreateInstance(int id, [FromBody] JsonElement payload, CancellationToken cancellationToken)
     {
         try
         {
             var command = new CreateInstanceCommand(id, payload.GetRawText());
+            var result = await sender.Send(command, cancellationToken);
+
+            return new ContentResult
+            {
+                StatusCode = result.StatusCode,
+                ContentType = "application/json",
+                Content = result.Payload
+            };
+        }
+        catch (HttpRequestException exception)
+        {
+            return StatusCode(StatusCodes.Status502BadGateway, new
+            {
+                error = "vast_ai_unavailable",
+                msg = exception.Message
+            });
+        }
+    }
+
+    [HttpPut("{id:int}")]
+    public async Task<IActionResult> ManageInstance(int id, [FromBody] JsonElement payload, CancellationToken cancellationToken)
+    {
+        if (payload.ValueKind != JsonValueKind.Object
+            || (!payload.TryGetProperty("state", out _) && !payload.TryGetProperty("label", out _)))
+        {
+            return BadRequest(new
+            {
+                success = false,
+                error = "invalid_args",
+                msg = "At least one of 'state' or 'label' must be provided."
+            });
+        }
+
+        try
+        {
+            var command = new ManageInstanceCommand(id, payload.GetRawText());
+            var result = await sender.Send(command, cancellationToken);
+
+            return new ContentResult
+            {
+                StatusCode = result.StatusCode,
+                ContentType = "application/json",
+                Content = result.Payload
+            };
+        }
+        catch (HttpRequestException exception)
+        {
+            return StatusCode(StatusCodes.Status502BadGateway, new
+            {
+                error = "vast_ai_unavailable",
+                msg = exception.Message
+            });
+        }
+    }
+
+    [HttpDelete("{id:int}")]
+    public async Task<IActionResult> DestroyInstance(int id, CancellationToken cancellationToken)
+    {
+        try
+        {
+            var command = new DestroyInstanceCommand(id);
+            var result = await sender.Send(command, cancellationToken);
+
+            return new ContentResult
+            {
+                StatusCode = result.StatusCode,
+                ContentType = "application/json",
+                Content = result.Payload
+            };
+        }
+        catch (HttpRequestException exception)
+        {
+            return StatusCode(StatusCodes.Status502BadGateway, new
+            {
+                error = "vast_ai_unavailable",
+                msg = exception.Message
+            });
+        }
+    }
+
+    [HttpPut("reboot/{id:int}")]
+    public async Task<IActionResult> RebootInstance(int id, CancellationToken cancellationToken)
+    {
+        try
+        {
+            var command = new RebootInstanceCommand(id);
             var result = await sender.Send(command, cancellationToken);
 
             return new ContentResult

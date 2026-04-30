@@ -10,4 +10,10 @@ public interface IVastAiInstancesGateway
     Task<SearchOffersResult> SearchOffersAsync(SearchOffersRequest request, CancellationToken cancellationToken);
 
     Task<CreateInstanceResult> CreateInstanceAsync(CreateInstanceRequest request, CancellationToken cancellationToken);
+
+    Task<ManageInstanceResult> ManageInstanceAsync(ManageInstanceRequest request, CancellationToken cancellationToken);
+
+    Task<DestroyInstanceResult> DestroyInstanceAsync(DestroyInstanceRequest request, CancellationToken cancellationToken);
+
+    Task<RebootInstanceResult> RebootInstanceAsync(RebootInstanceRequest request, CancellationToken cancellationToken);
 }

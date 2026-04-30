@@ -54,4 +54,37 @@ public sealed class VastAiInstancesGateway(HttpClient httpClient)
 
         return new CreateInstanceResult((int)response.StatusCode, payload);
     }
+
+    public async Task<ManageInstanceResult> ManageInstanceAsync(
+        ManageInstanceRequest request,
+        CancellationToken cancellationToken)
+    {
+        using var content = new StringContent(request.Payload, Encoding.UTF8, "application/json");
+        using var response = await HttpClient.PutAsync($"/api/v0/instances/{request.InstanceId}/", content, cancellationToken);
+        var payload = await response.Content.ReadAsStringAsync(cancellationToken);
+
+        return new ManageInstanceResult((int)response.StatusCode, payload);
+    }
+
+    public async Task<DestroyInstanceResult> DestroyInstanceAsync(
+        DestroyInstanceRequest request,
+        CancellationToken cancellationToken)
+    {
+        using var requestMessage = new HttpRequestMessage(HttpMethod.Delete, $"/api/v0/instances/{request.InstanceId}/");
+        using var response = await HttpClient.SendAsync(requestMessage, cancellationToken);
+        var payload = await response.Content.ReadAsStringAsync(cancellationToken);
+
+        return new DestroyInstanceResult((int)response.StatusCode, payload);
+    }
+
+    public async Task<RebootInstanceResult> RebootInstanceAsync(
+        RebootInstanceRequest request,
+        CancellationToken cancellationToken)
+    {
+        using var requestMessage = new HttpRequestMessage(HttpMethod.Put, $"/api/v0/instances/reboot/{request.InstanceId}/");
+        using var response = await HttpClient.SendAsync(requestMessage, cancellationToken);
+        var payload = await response.Content.ReadAsStringAsync(cancellationToken);
+
+        return new RebootInstanceResult((int)response.StatusCode, payload);
+    }
 }
