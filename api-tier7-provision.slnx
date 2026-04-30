@@ -1,0 +1,11 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/ApiTier7Provision.Api/ApiTier7Provision.Api.csproj" />
+    <Project Path="src/ApiTier7Provision.Application/ApiTier7Provision.Application.csproj" />
+    <Project Path="src/ApiTier7Provision.Domain/ApiTier7Provision.Domain.csproj" />
+    <Project Path="src/ApiTier7Provision.Infrastructure/ApiTier7Provision.Infrastructure.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/ApiTier7Provision.Application.Tests/ApiTier7Provision.Application.Tests.csproj" />
+  </Folder>
+</Solution>

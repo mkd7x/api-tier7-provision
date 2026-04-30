@@ -1,0 +1,6 @@
+@ApiTier7Provision.Api_HostAddress = http://localhost:5019
+
+GET {{ApiTier7Provision.Api_HostAddress}}/health
+Accept: application/json
+
+###
