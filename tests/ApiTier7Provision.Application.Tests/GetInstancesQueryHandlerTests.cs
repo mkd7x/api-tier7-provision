@@ -56,5 +56,8 @@ public sealed class GetInstancesQueryHandlerTests
             LastRequest = request;
             return Task.FromResult(Result);
         }
+
+        public Task<SearchOffersResult> SearchOffersAsync(SearchOffersRequest request, CancellationToken cancellationToken) =>
+            Task.FromResult(new SearchOffersResult(200, "{}"));
     }
 }

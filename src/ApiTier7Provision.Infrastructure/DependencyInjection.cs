@@ -2,7 +2,7 @@ using ApiTier7Provision.Application.Abstractions;
 using ApiTier7Provision.Infrastructure.Persistence;
 using ApiTier7Provision.Infrastructure.Persistence.Repositories;
 using ApiTier7Provision.Infrastructure.Services;
-using ApiTier7Provision.Infrastructure.VastAi;
+using ApiTier7Provision.Infrastructure.ApiClients.VastAi;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;

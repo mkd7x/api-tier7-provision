@@ -1,7 +1,8 @@
 using ApiTier7Provision.Application.Abstractions;
 using ApiTier7Provision.Application.Queries.Instances;
+using System.Text;
 
-namespace ApiTier7Provision.Infrastructure.VastAi;
+namespace ApiTier7Provision.Infrastructure.ApiClients.VastAi;
 
 public sealed class VastAiInstancesGateway(HttpClient httpClient)
     : VastAiHttpClientBase(httpClient), IVastAiInstancesGateway
@@ -29,5 +30,16 @@ public sealed class VastAiInstancesGateway(HttpClient httpClient)
         var payload = await response.Content.ReadAsStringAsync(cancellationToken);
 
         return new GetInstancesResult((int)response.StatusCode, payload);
+    }
+
+    public async Task<SearchOffersResult> SearchOffersAsync(
+        SearchOffersRequest request,
+        CancellationToken cancellationToken)
+    {
+        using var content = new StringContent(request.Payload, Encoding.UTF8, "application/json");
+        using var response = await HttpClient.PostAsync("/api/v0/bundles/", content, cancellationToken);
+        var payload = await response.Content.ReadAsStringAsync(cancellationToken);
+
+        return new SearchOffersResult((int)response.StatusCode, payload);
     }
 }

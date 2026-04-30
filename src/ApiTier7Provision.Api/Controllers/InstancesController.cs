@@ -1,6 +1,7 @@
 using ApiTier7Provision.Application.Queries.Instances;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using System.Text.Json;
 
 namespace ApiTier7Provision.Api.Controllers;
 
@@ -27,6 +28,31 @@ public sealed class InstancesController(ISender sender) : ControllerBase
                 selectFilters);
 
             var result = await sender.Send(query, cancellationToken);
+            return new ContentResult
+            {
+                StatusCode = result.StatusCode,
+                ContentType = "application/json",
+                Content = result.Payload
+            };
+        }
+        catch (HttpRequestException exception)
+        {
+            return StatusCode(StatusCodes.Status502BadGateway, new
+            {
+                error = "vast_ai_unavailable",
+                msg = exception.Message
+            });
+        }
+    }
+
+    [HttpPost("offers")]
+    public async Task<IActionResult> SearchOffers([FromBody] JsonElement payload, CancellationToken cancellationToken)
+    {
+        try
+        {
+            var query = new SearchOffersQuery(payload.GetRawText());
+            var result = await sender.Send(query, cancellationToken);
+
             return new ContentResult
             {
                 StatusCode = result.StatusCode,

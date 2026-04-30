@@ -9,3 +9,22 @@ GET {{ApiTier7Provision.Api_HostAddress}}/api/instances?limit=5
 Accept: application/json
 
 ###
+
+POST {{ApiTier7Provision.Api_HostAddress}}/api/instances/search-offers
+Content-Type: application/json
+Accept: application/json
+
+{
+  "limit": 100,
+  "type": "ondemand",
+  "verified": { "eq": true },
+  "rentable": { "eq": true },
+  "rented": { "eq": false },
+  "num_gpus": { "gte": 4 },
+  "reliability": { "gt": 0.99 },
+  "order": [
+    ["dph_total", "asc"]
+  ]
+}
+
+###

@@ -1,4 +1,4 @@
-namespace ApiTier7Provision.Infrastructure.VastAi;
+namespace ApiTier7Provision.Infrastructure.ApiClients.VastAi;
 
 public abstract class VastAiHttpClientBase(HttpClient httpClient)
 {

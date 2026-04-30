@@ -1,4 +1,4 @@
-namespace ApiTier7Provision.Infrastructure.VastAi;
+namespace ApiTier7Provision.Infrastructure.ApiClients.VastAi;
 
 public sealed class VastAiApiOptions
 {

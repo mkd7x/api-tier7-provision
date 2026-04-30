@@ -45,3 +45,15 @@ Supported query parameters are passed to Vast.ai `GET /api/v1/instances/`:
 - `order_by`
 - `select_cols`
 - `select_filters`
+
+## Search offers endpoint (Vast.ai passthrough via CQRS)
+
+```bash
+curl -X POST "http://localhost:8080/api/instances/search-offers" \
+  -H "Content-Type: application/json" \
+  -d "{\"limit\":100,\"verified\":{\"eq\":true},\"num_gpus\":{\"gte\":4},\"order\":[[\"dph_total\",\"asc\"]]}"
+```
+
+This endpoint forwards the JSON body to Vast.ai `POST /api/v0/bundles/` and returns upstream status/body.
+
+Filter fields use operator objects (for example: `eq`, `neq`, `gt`, `lt`, `gte`, `lte`, `in`, `notin`).
