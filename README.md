@@ -57,3 +57,15 @@ curl -X POST "http://localhost:8080/api/instances/search-offers" \
 This endpoint forwards the JSON body to Vast.ai `POST /api/v0/bundles/` and returns upstream status/body.
 
 Filter fields use operator objects (for example: `eq`, `neq`, `gt`, `lt`, `gte`, `lte`, `in`, `notin`).
+
+## Create instance endpoint (Vast.ai passthrough via CQRS)
+
+```bash
+curl -X PUT "http://localhost:8080/api/instances/1234567" \
+  -H "Content-Type: application/json" \
+  -d "{\"image\":\"vastai/base-image:@vastai-automatic-tag\",\"label\":\"my-instance\"}"
+```
+
+This endpoint forwards the request body to Vast.ai `PUT /api/v0/asks/{id}/` where `{id}` is the offer (ask) ID.
+
+`template_hash_id` can be provided in the body, and request values override or merge with template defaults according to Vast.ai template precedence rules.

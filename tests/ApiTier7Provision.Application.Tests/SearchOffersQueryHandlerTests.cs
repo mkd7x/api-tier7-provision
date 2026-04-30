@@ -1,4 +1,5 @@
 using ApiTier7Provision.Application.Abstractions;
+using ApiTier7Provision.Application.Commands.Instances;
 using ApiTier7Provision.Application.Queries.Instances;
 
 namespace ApiTier7Provision.Application.Tests;
@@ -42,5 +43,10 @@ public sealed class SearchOffersQueryHandlerTests
             LastRequest = request;
             return Task.FromResult(Result);
         }
+
+        public Task<CreateInstanceResult> CreateInstanceAsync(
+            CreateInstanceRequest request,
+            CancellationToken cancellationToken) =>
+            Task.FromResult(new CreateInstanceResult(200, "{}"));
     }
 }

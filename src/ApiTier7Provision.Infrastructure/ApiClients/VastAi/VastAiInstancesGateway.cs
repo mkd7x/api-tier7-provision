@@ -1,4 +1,5 @@
 using ApiTier7Provision.Application.Abstractions;
+using ApiTier7Provision.Application.Commands.Instances;
 using ApiTier7Provision.Application.Queries.Instances;
 using System.Text;
 
@@ -41,5 +42,16 @@ public sealed class VastAiInstancesGateway(HttpClient httpClient)
         var payload = await response.Content.ReadAsStringAsync(cancellationToken);
 
         return new SearchOffersResult((int)response.StatusCode, payload);
+    }
+
+    public async Task<CreateInstanceResult> CreateInstanceAsync(
+        CreateInstanceRequest request,
+        CancellationToken cancellationToken)
+    {
+        using var content = new StringContent(request.Payload, Encoding.UTF8, "application/json");
+        using var response = await HttpClient.PutAsync($"/api/v0/asks/{request.AskId}/", content, cancellationToken);
+        var payload = await response.Content.ReadAsStringAsync(cancellationToken);
+
+        return new CreateInstanceResult((int)response.StatusCode, payload);
     }
 }
