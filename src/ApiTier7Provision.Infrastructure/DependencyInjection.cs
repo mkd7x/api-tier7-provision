@@ -20,7 +20,12 @@ public static class DependencyInjection
 
         services.AddDbContext<AppDbContext>(options => options.UseNpgsql(connectionString));
         services.AddScoped<IHealthCheckLogRepository, HealthCheckLogRepository>();
+        services.AddScoped<IModelTemplateRepository, ModelTemplateRepository>();
+        services.AddScoped<ModelTemplateSeeder>();
+        services.AddScoped<IProvisionedInstanceRepository, ProvisionedInstanceRepository>();
         services.AddSingleton<IDateTimeProvider, UtcDateTimeProvider>();
+        services.AddOptions<ModelTemplateCatalogOptions>()
+            .Bind(configuration.GetSection(ModelTemplateCatalogOptions.SectionName));
         services.AddOptions<VastAiApiOptions>()
             .Bind(configuration.GetSection(VastAiApiOptions.SectionName));
 

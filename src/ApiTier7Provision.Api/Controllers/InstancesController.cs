@@ -1,4 +1,5 @@
 using ApiTier7Provision.Application.Commands.Instances;
+using ApiTier7Provision.Application.Models;
 using ApiTier7Provision.Application.Queries.Instances;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -86,6 +87,67 @@ public sealed class InstancesController(ISender sender) : ControllerBase
                 ContentType = "application/json",
                 Content = result.Payload
             };
+        }
+        catch (HttpRequestException exception)
+        {
+            return StatusCode(StatusCodes.Status502BadGateway, new
+            {
+                error = "vast_ai_unavailable",
+                msg = exception.Message
+            });
+        }
+    }
+
+    [HttpPost("provision-spot")]
+    public async Task<IActionResult> ProvisionSpotInstance(
+        [FromBody] InstanceSpotOrderRequest request,
+        CancellationToken cancellationToken)
+    {
+        try
+        {
+            var command = new ProvisionSpotInstanceCommand(
+                request.Model,
+                request.MaxDPH,
+                request.MaxIngressCost,
+                request.MaxEgressCost);
+            var result = await sender.Send(command, cancellationToken);
+
+            return Ok(result);
+        }
+        catch (ModelTemplateNotFoundException exception)
+        {
+            return NotFound(new
+            {
+                error = "model_template_not_found",
+                msg = exception.Message
+            });
+        }
+        catch (NoQualifyingSpotOfferException exception)
+        {
+            return NotFound(new
+            {
+                error = "no_qualifying_offers",
+                msg = exception.Message
+            });
+        }
+        catch (VastAiMalformedResponseException exception)
+        {
+            return StatusCode(StatusCodes.Status502BadGateway, new
+            {
+                error = "vast_ai_malformed_response",
+                msg = exception.Message
+            });
+        }
+        catch (VastAiProvisioningException exception)
+        {
+            return StatusCode(StatusCodes.Status502BadGateway, new
+            {
+                error = "vast_ai_provisioning_failed",
+                operation = exception.Operation,
+                upstream_status_code = exception.StatusCode,
+                msg = exception.Message,
+                details = exception.Payload
+            });
         }
         catch (HttpRequestException exception)
         {

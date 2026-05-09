@@ -1,0 +1,292 @@
+{
+  "_type": "export",
+  "__export_format": 4,
+  "__export_date": "2026-05-02T04:25:00.000Z",
+  "__export_source": "github-copilot-cli",
+  "resources": [
+    {
+      "_id": "wrk_api_tier7_provision",
+      "parentId": null,
+      "modified": 1777695900000,
+      "created": 1777695900000,
+      "name": "api-tier7-provision",
+      "description": "Requests for all API endpoints.",
+      "scope": "collection",
+      "_type": "workspace"
+    },
+    {
+      "_id": "env_api_tier7_provision_base",
+      "parentId": "wrk_api_tier7_provision",
+      "modified": 1777695900000,
+      "created": 1777695900000,
+      "name": "Base Environment",
+      "data": {
+        "base_url": "http://localhost:8080",
+        "ask_id": 1234567,
+        "instance_id": 1234
+      },
+      "dataPropertyOrder": null,
+      "color": null,
+      "isPrivate": false,
+      "metaSortKey": 1000,
+      "_type": "environment"
+    },
+    {
+      "_id": "fld_health",
+      "parentId": "wrk_api_tier7_provision",
+      "modified": 1777695900000,
+      "created": 1777695900000,
+      "name": "Health",
+      "description": "",
+      "environment": {},
+      "environmentPropertyOrder": null,
+      "metaSortKey": 900,
+      "_type": "request_group"
+    },
+    {
+      "_id": "fld_instances",
+      "parentId": "wrk_api_tier7_provision",
+      "modified": 1777695900000,
+      "created": 1777695900000,
+      "name": "Instances",
+      "description": "",
+      "environment": {},
+      "environmentPropertyOrder": null,
+      "metaSortKey": 800,
+      "_type": "request_group"
+    },
+    {
+      "_id": "req_get_health",
+      "parentId": "fld_health",
+      "modified": 1777695900000,
+      "created": 1777695900000,
+      "url": "{{ _.base_url }}/api/health",
+      "name": "Get Health",
+      "description": "",
+      "method": "GET",
+      "body": {},
+      "parameters": [],
+      "headers": [],
+      "authentication": {},
+      "metaSortKey": 700,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "req_get_instances",
+      "parentId": "fld_instances",
+      "modified": 1777695900000,
+      "created": 1777695900000,
+      "url": "{{ _.base_url }}/api/instances",
+      "name": "Get Instances",
+      "description": "",
+      "method": "GET",
+      "body": {},
+      "parameters": [
+        {
+          "id": "pair_instances_limit",
+          "name": "limit",
+          "value": "25",
+          "description": ""
+        },
+        {
+          "id": "pair_instances_select_filters",
+          "name": "select_filters",
+          "value": "{\"actual_status\":{\"eq\":\"running\"}}",
+          "description": ""
+        }
+      ],
+      "headers": [],
+      "authentication": {},
+      "metaSortKey": 690,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "req_post_instances_offers",
+      "parentId": "fld_instances",
+      "modified": 1777695900000,
+      "created": 1777695900000,
+      "url": "{{ _.base_url }}/api/instances/offers",
+      "name": "Search Offers (offers route)",
+      "description": "",
+      "method": "POST",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"limit\": 100,\n  \"verified\": {\n    \"eq\": true\n  },\n  \"num_gpus\": {\n    \"gte\": 4\n  },\n  \"order\": [\n    [\n      \"dph_total\",\n      \"asc\"\n    ]\n  ]\n}"
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "id": "pair_offers_content_type",
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "authentication": {},
+      "metaSortKey": 680,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "req_post_instances_search_offers",
+      "parentId": "fld_instances",
+      "modified": 1777695900000,
+      "created": 1777695900000,
+      "url": "{{ _.base_url }}/api/instances/search-offers",
+      "name": "Search Offers (search-offers route)",
+      "description": "",
+      "method": "POST",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"limit\": 100,\n  \"verified\": {\n    \"eq\": true\n  },\n  \"num_gpus\": {\n    \"gte\": 4\n  },\n  \"order\": [\n    [\n      \"dph_total\",\n      \"asc\"\n    ]\n  ]\n}"
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "id": "pair_search_offers_content_type",
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "authentication": {},
+      "metaSortKey": 670,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "req_put_instances_create",
+      "parentId": "fld_instances",
+      "modified": 1777695900000,
+      "created": 1777695900000,
+      "url": "{{ _.base_url }}/api/instances/asks/{{ _.ask_id }}",
+      "name": "Create Instance",
+      "description": "",
+      "method": "PUT",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"image\": \"vastai/base-image:@vastai-automatic-tag\",\n  \"label\": \"my-instance\"\n}"
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "id": "pair_create_instance_content_type",
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "authentication": {},
+      "metaSortKey": 660,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "req_put_instances_manage",
+      "parentId": "fld_instances",
+      "modified": 1777695900000,
+      "created": 1777695900000,
+      "url": "{{ _.base_url }}/api/instances/{{ _.instance_id }}",
+      "name": "Manage Instance",
+      "description": "",
+      "method": "PUT",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"state\": \"stopped\",\n  \"label\": \"my-instance\"\n}"
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "id": "pair_manage_instance_content_type",
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "authentication": {},
+      "metaSortKey": 650,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "req_delete_instances_destroy",
+      "parentId": "fld_instances",
+      "modified": 1777695900000,
+      "created": 1777695900000,
+      "url": "{{ _.base_url }}/api/instances/{{ _.instance_id }}",
+      "name": "Destroy Instance",
+      "description": "",
+      "method": "DELETE",
+      "body": {},
+      "parameters": [],
+      "headers": [],
+      "authentication": {},
+      "metaSortKey": 640,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "req_put_instances_reboot",
+      "parentId": "fld_instances",
+      "modified": 1777695900000,
+      "created": 1777695900000,
+      "url": "{{ _.base_url }}/api/instances/reboot/{{ _.instance_id }}",
+      "name": "Reboot Instance",
+      "description": "",
+      "method": "PUT",
+      "body": {},
+      "parameters": [],
+      "headers": [],
+      "authentication": {},
+      "metaSortKey": 630,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    }
+  ]
+}
