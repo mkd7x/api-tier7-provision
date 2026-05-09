@@ -10,4 +10,9 @@ public sealed class ModelTemplateRepository(AppDbContext dbContext) : IModelTemp
         dbContext.ModelTemplates
             .AsNoTracking()
             .SingleOrDefaultAsync(x => EF.Functions.ILike(x.Model, model), cancellationToken);
+
+    public Task<List<ModelTemplate>> GetAllAsync(CancellationToken cancellationToken) =>
+        dbContext.ModelTemplates
+            .AsNoTracking()
+            .ToListAsync(cancellationToken);
 }
