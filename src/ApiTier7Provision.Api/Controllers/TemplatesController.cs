@@ -21,4 +21,13 @@ public class TemplatesController(ISender sender) : ControllerBase
             Content = JsonSerializer.Serialize(res)
         };
     }
+
+    [HttpPost]
+    public async Task<IActionResult> CreateTemplate(
+        [FromBody] CreateModelTemplateRequest request,
+        CancellationToken cancellationToken)
+    {
+        await sender.Send(new CreateModelTemplateCommand(request.Model, request.SupportedGpus, request.TemplateUuid), cancellationToken);
+        return Ok();
+    }
 }

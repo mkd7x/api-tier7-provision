@@ -1,0 +1,1 @@
+public record CreateModelTemplateRequest(string Model, string[] SupportedGpus, string TemplateUuid);

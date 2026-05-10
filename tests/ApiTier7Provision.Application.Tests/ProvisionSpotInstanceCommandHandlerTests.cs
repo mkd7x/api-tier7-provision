@@ -191,6 +191,12 @@ public sealed class ProvisionSpotInstanceCommandHandlerTests
       Task.FromResult(modelTemplate is not null && string.Equals(modelTemplate.Model, model, StringComparison.OrdinalIgnoreCase)
         ? modelTemplate
         : null);
+
+    public Task<List<ModelTemplate>> GetAllAsync(CancellationToken cancellationToken) =>
+      Task.FromResult(modelTemplate is null ? new List<ModelTemplate>() : new List<ModelTemplate> { modelTemplate });
+
+    public Task AddAsync(ModelTemplate modelTemplateToAdd, CancellationToken cancellationToken) =>
+      Task.CompletedTask;
   }
 
   private sealed class FakeProvisionedInstanceRepository : IProvisionedInstanceRepository

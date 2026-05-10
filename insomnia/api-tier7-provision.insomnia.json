@@ -23,7 +23,9 @@
       "data": {
         "base_url": "http://localhost:8080",
         "ask_id": 1234567,
-        "instance_id": 1234
+        "instance_id": 1234,
+        "model": "llama-3",
+        "template_uuid": "template-hash-123"
       },
       "dataPropertyOrder": null,
       "color": null,
@@ -56,6 +58,18 @@
       "_type": "request_group"
     },
     {
+      "_id": "fld_templates",
+      "parentId": "wrk_api_tier7_provision",
+      "modified": 1777695900000,
+      "created": 1777695900000,
+      "name": "Templates",
+      "description": "",
+      "environment": {},
+      "environmentPropertyOrder": null,
+      "metaSortKey": 850,
+      "_type": "request_group"
+    },
+    {
       "_id": "req_get_health",
       "parentId": "fld_health",
       "modified": 1777695900000,
@@ -69,6 +83,74 @@
       "headers": [],
       "authentication": {},
       "metaSortKey": 700,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "req_get_templates",
+      "parentId": "fld_templates",
+      "modified": 1777695900000,
+      "created": 1777695900000,
+      "url": "{{ _.base_url }}/api/templates",
+      "name": "Get Templates",
+      "description": "",
+      "method": "GET",
+      "body": {},
+      "parameters": [
+        {
+          "id": "pair_templates_limit",
+          "name": "limit",
+          "value": "25",
+          "description": ""
+        },
+        {
+          "id": "pair_templates_model",
+          "name": "model",
+          "value": "{{ _.model }}",
+          "description": ""
+        }
+      ],
+      "headers": [],
+      "authentication": {},
+      "metaSortKey": 790,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "req_post_templates",
+      "parentId": "fld_templates",
+      "modified": 1777695900000,
+      "created": 1777695900000,
+      "url": "{{ _.base_url }}/api/templates",
+      "name": "Create Template",
+      "description": "",
+      "method": "POST",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"model\": \"{{ _.model }}\",\n  \"supportedGpus\": [\n    \"RTX 4090\",\n    \"A100\"\n  ],\n  \"templateUuid\": \"{{ _.template_uuid }}\"\n}"
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "id": "pair_create_template_content_type",
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "authentication": {},
+      "metaSortKey": 780,
       "isPrivate": false,
       "settingStoreCookies": true,
       "settingSendCookies": true,
@@ -169,6 +251,38 @@
       ],
       "authentication": {},
       "metaSortKey": 670,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "req_post_instances_provision_spot",
+      "parentId": "fld_instances",
+      "modified": 1777695900000,
+      "created": 1777695900000,
+      "url": "{{ _.base_url }}/api/instances/provision-spot",
+      "name": "Provision Spot Instance",
+      "description": "",
+      "method": "POST",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"model\": \"{{ _.model }}\",\n  \"maxDPH\": 0.5,\n  \"maxIngressCost\": 0.1,\n  \"maxEgressCost\": 0.1\n}"
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "id": "pair_provision_spot_content_type",
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "authentication": {},
+      "metaSortKey": 665,
       "isPrivate": false,
       "settingStoreCookies": true,
       "settingSendCookies": true,

@@ -15,4 +15,10 @@ public sealed class ModelTemplateRepository(AppDbContext dbContext) : IModelTemp
         dbContext.ModelTemplates
             .AsNoTracking()
             .ToListAsync(cancellationToken);
+
+    public async Task AddAsync(ModelTemplate modelTemplate, CancellationToken cancellationToken)
+    {
+        dbContext.ModelTemplates.Add(modelTemplate);
+        await dbContext.SaveChangesAsync(cancellationToken);
+    }
 }
