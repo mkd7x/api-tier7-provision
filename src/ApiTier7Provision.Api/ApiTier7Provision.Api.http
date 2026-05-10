@@ -5,6 +5,16 @@ Accept: application/json
 
 ###
 
+GET {{ApiTier7Provision.Api_HostAddress}}/api/templates?model=llama-3
+Accept: application/json
+
+###
+
+DELETE {{ApiTier7Provision.Api_HostAddress}}/api/templates?model=llama-3
+Accept: application/json
+
+###
+
 GET {{ApiTier7Provision.Api_HostAddress}}/api/instances?limit=5
 Accept: application/json
 

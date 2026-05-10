@@ -58,5 +58,8 @@ public sealed class GetModelTemplatesQueryHandlerTests
 
     public Task AddAsync(ModelTemplate modelTemplateToAdd, CancellationToken cancellationToken) =>
       Task.CompletedTask;
+
+    public Task<ModelTemplateDeleteStatus> DeleteByModelAsync(string model, CancellationToken cancellationToken) =>
+      Task.FromResult(ModelTemplateDeleteStatus.NotFound);
   }
 }

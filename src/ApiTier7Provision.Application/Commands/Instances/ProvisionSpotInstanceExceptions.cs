@@ -3,6 +3,9 @@ namespace ApiTier7Provision.Application.Commands.Instances;
 public sealed class ModelTemplateNotFoundException(string model)
     : Exception($"No model template was found for model '{model}'.");
 
+public sealed class ModelTemplateInUseException(string model)
+    : Exception($"Model template '{model}' cannot be deleted because it is referenced by provisioned instances.");
+
 public sealed class NoQualifyingSpotOfferException(string model)
     : Exception($"No qualifying spot offer was found for model '{model}'.");
 

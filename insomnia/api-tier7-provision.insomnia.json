@@ -25,7 +25,7 @@
         "ask_id": 1234567,
         "instance_id": 1234,
         "model": "llama-3",
-        "template_uuid": "template-hash-123"
+        "template_uuid": "00000000-0000-0000-0000-000000000000"
       },
       "dataPropertyOrder": null,
       "color": null,
@@ -151,6 +151,36 @@
       ],
       "authentication": {},
       "metaSortKey": 780,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "req_delete_templates",
+      "parentId": "fld_templates",
+      "modified": 1777695900000,
+      "created": 1777695900000,
+      "url": "{{ _.base_url }}/api/templates",
+      "name": "Delete Template",
+      "description": "",
+      "method": "DELETE",
+      "body": {},
+      "parameters": [
+        {
+          "id": "pair_delete_template_model",
+          "name": "model",
+          "value": "{{ _.model }}",
+          "description": ""
+        }
+      ],
+      "headers": [],
+      "authentication": {},
+      "metaSortKey": 775,
       "isPrivate": false,
       "settingStoreCookies": true,
       "settingSendCookies": true,
